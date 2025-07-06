@@ -169,4 +169,114 @@ function search(arry,target,left,right){
         }
 }
 
-console.log(binarySearchRecurrsive([2,4,6,8,9],9))
+// console.log(binarySearchRecurrsive([2,4,6,8,9],9))
+
+function bubleSort(arr){
+    let isSwapped ;
+      do{  
+         isSwapped = false;
+        for(let i=0; i<arr.length-1; i++){
+            if(arr[i+1] < arr[i]){
+                let temp = arr[i+1];
+                arr[i+1] = arr[i];
+                arr[i] = temp;
+                isSwapped=true;
+            }
+        }
+    }while(isSwapped)
+
+    return  arr
+}
+
+// console.log(bubleSort([-4,-6,6,4,3]))s
+
+function insertionSort(arr){
+
+    for(let i= 1; i<arr.length; i++){
+        let numbetoInsert = arr[i];//3 (4)
+        let sortedelementIndex  = i-1;//-4,(1)
+        while(sortedelementIndex>=0 && arr[sortedelementIndex] > numbetoInsert){
+            arr[sortedelementIndex+1]= arr[sortedelementIndex];
+            sortedelementIndex = sortedelementIndex -1
+        }
+        arr[sortedelementIndex +1] =  numbetoInsert;
+    }
+    return arr
+}
+
+console.log(insertionSort([-4,-6,6,4,3]))//[-6,-4,3,4,6]
+
+
+function insertionsortagian(arr){
+
+    for(let i=1; i<arr.length; i++){
+        let numertoinsert = arr[i];
+        let j = i-1;
+        while(j>=0 && arr[j]>numertoinsert){
+            arr[j+1]= arr[j];
+            j= j-1
+        }
+        arr[j+1]= numertoinsert
+    }
+    return arr
+}
+
+// console.log(insertionsortagian([-4,-6,6,4,3]))
+
+
+
+
+function quickSort(arr){
+
+    if(arr.length <=1 ){
+        return arr
+    }
+    let pivot = arr[arr.length-1];
+    let left=[];
+    let right = [];
+    for(let i=0; i<arr.length-1; i++){
+
+        if(arr[i]<pivot){
+            left.push(arr[i])
+        }else{
+            right.push(arr[i])
+        }
+
+    }
+    return [...quickSort(left),pivot,...quickSort(right)]
+}
+
+
+
+
+console.log(quickSort([-4,-6,6,4,3]))//[-6,-4,3,4,6]
+
+
+
+function mergeSort(arr){
+
+    if(arr.length <2){
+        return arr
+    }
+
+    let middle = Math.floor(arr.length/2)
+
+    let left = arr.slice(0,middle);
+    let right = arr.slice(middle)
+
+    return merge(mergeSort(left),mergeSort(right))
+}
+
+function merge(left,right){
+    let sortedArry = [];
+    while(left.length && right.length){
+        if(left[0]<right[0]){
+            sortedArry.push(left.shift())
+        }else{
+           sortedArry.push(right.shift()) 
+        }
+        
+    }
+    return[...sortedArry,...left,...right]
+}
+console.log(mergeSort([-4,-6,6,4,3]))
